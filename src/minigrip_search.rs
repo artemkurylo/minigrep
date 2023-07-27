@@ -1,3 +1,4 @@
+/// Search by query in content
 pub fn search<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
     content.lines()
         .into_iter()
@@ -8,6 +9,7 @@ pub fn search<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
         .collect()
 }
 
+/// Search by query in content (case insensitive)
 pub fn search_case_insensitive<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
     let query = &query.to_lowercase();
 

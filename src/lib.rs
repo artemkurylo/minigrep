@@ -3,6 +3,8 @@ use std::{env, fs};
 
 pub mod minigrip_search;
 
+/// Config struct <br>
+/// Keeps the arguments passed from command line
 pub struct Config {
     pub query: String,
     pub path: String,
