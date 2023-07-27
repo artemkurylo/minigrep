@@ -10,16 +10,26 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn build(args: &[String]) -> Result<Config, &str> {
-        if args.len() < 3 {
-            return Err("not enough arguments");
-        } else if args.len() > 4 {
-            return Err("too many arguments");
-        }
+    pub fn build(
+        mut args: impl Iterator<Item=String>
+    ) -> Result<Config, &'static str> {
+        // not used
+        let _program_name = args.next();
 
-        let query = args[1].clone();
-        let path = args[2].clone();
-        let ignore_case = Self::parse_bool_value(&args[3]);
+        let query = match args.next() {
+            None => return Err("Didn't get a query string"),
+            Some(query) => query,
+        };
+
+        let path = match args.next() {
+            None => return Err("Didn't get a path string"),
+            Some(path) => path,
+        };
+
+        let ignore_case = match args.next() {
+            Some(param) => Self::parse_bool_value(&param),
+            None => false,
+        };
 
         Ok(Self { query, path, ignore_case })
     }
